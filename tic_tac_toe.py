@@ -12,7 +12,7 @@ taken = True
 winner = False
 turn_number = 0
 # keeps the score and determines what symbols will be used
-symbols = ["i", "x"]
+symbols = ["x", "o"]
 winner_save = [list(x * 3) for x in symbols]
 score = {symbol: 0 for symbol in symbols}
 # adds the vertical row keys to the game boards
