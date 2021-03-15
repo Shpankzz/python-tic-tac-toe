@@ -1,24 +1,21 @@
 import time
 import sys
 
-titles = "    A   B   C\n"
-init_board = "| / | / | / |\n"
+TITLES = "    A   B   C\n"
+INIT_BOARD = "| / | / | / |\n"
 A, B, C = 4, 8, 12
 # creates the game board
-board = [f"{x} {init_board}" for x in range(3)]
-brod = "test"
+board = [f"{x} {INIT_BOARD}" for x in range(3)]
 user_turn = ""
 taken = True
 winner = False
 turn_number = 0
 # keeps the score and determines what symbols will be used
-symbols = ["x", "o"]
-winner_save = [list(x * 3) for x in symbols]
-score = {symbol: 0 for symbol in symbols}
-# adds the vertical row keys to the game boards
-whole_board = titles + "".join(board)
+SYMBOLS = ["x", "o"]
+winner_save = [list(x * 3) for x in SYMBOLS]
+score = {symbol: 0 for symbol in SYMBOLS}
 
-# does all the background logic to the game
+# does all the logic to the game
 class logic:
     def __init__(self, ctx, turn, win_template):
         self.ctx = ctx
@@ -88,13 +85,13 @@ def slow_print(inpt):
         time.sleep(0.01)
 
 
-slow_print(titles + "".join(board))
+slow_print(TITLES + "".join(board))
 
 # determines what symbol will go first
 while True:
-    slow_print(f"{symbols[0]}'s or {symbols[1]}'s?- \n")
+    slow_print(f"{SYMBOLS[0]}'s or {SYMBOLS[1]}'s?- \n")
     user_turn = input()
-    if user_turn in [symbols[0], symbols[1]]:
+    if user_turn in [SYMBOLS[0], SYMBOLS[1]]:
         slow_print(f"{user_turn}'s first!\n")
         break
     else:
@@ -118,23 +115,23 @@ while True:
             taken = init.spot_taken()
         ctx_board = init.take_spot()
         board[int(user[1])] = ctx_board
-        slow_print(titles + "".join(board))
-        user_turn = symbols[0] if user_turn != symbols[0] else symbols[1]
+        slow_print(TITLES + "".join(board))
+        user_turn = SYMBOLS[0] if user_turn != SYMBOLS[0] else SYMBOLS[1]
         taken = True
         winner = init.winner_check()
     # makes sure the point is given to the winner by inverting the current user_turn
     if outcome == None:
         pass
     else:
-        score[symbols[0] if user_turn == symbols[1] else symbols[1]] += 1
+        score[SYMBOLS[0] if user_turn == SYMBOLS[1] else SYMBOLS[1]] += 1
     slow_print(
-        f"Scores: {symbols[0]}-{score[symbols[0]]}, {symbols[1]}-{score[symbols[1]]}\n"
+        f"Scores: {SYMBOLS[0]}-{score[SYMBOLS[0]]}, {SYMBOLS[1]}-{score[SYMBOLS[1]]}\n"
     )
     slow_print("Would you like to play another (Y/N)?- \n")
     repeat = input().upper()
     if repeat == "Y":
         winner = False
-        board = [f"{x} {init_board}" for x in range(3)]
+        board = [f"{x} {INIT_BOARD}" for x in range(3)]
         turn_number = 0
         continue
     else:
